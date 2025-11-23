@@ -52,7 +52,7 @@ void task1() {
     A = 0.;  // black hole spin
     INCLINATION =
         acos(0.25) / PI * 180.;  // inclination angle in unit of degree
-    SIZE = 512;                  // pixels of the image
+    SIZE = 1024;                  // pixels of the image
 
     printf("image size = %.0f  x  %0.f  pixels\n", SIZE, SIZE);
 
@@ -115,18 +115,18 @@ void task2() {
                                // thread is given by (threadIdx.x,threadIdx.y)
 
     // assign parameters
-    A = 0.;             // black hole spin
-    INCLINATION = 45.;  // inclination angle in unit of degree
-    SIZE = 128;         // pixels of the image
+    A = 0.998;             // black hole spin
+    INCLINATION = 80.0;  // inclination angle in unit of degree
+    SIZE = 4096;         // pixels of the image
     freq_obs = 340e9;   // observed frequency
 
     printf("image size = %.0f  x  %0.f  pixels\n", SIZE, SIZE);
 
     // assign CUDA congfigurations
-    BlockDimX = 100;
+    BlockDimX = 256;
     BlockDimY = 1;
-    GridDimX = 1;
-    GridDimY = 50;
+    GridDimX = 64;
+    GridDimY = 64;
     mission.setDims(GridDimX, GridDimY, BlockDimX, BlockDimY);
 
     // allocate memory on device for input and output
