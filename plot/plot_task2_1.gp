@@ -1,31 +1,16 @@
-# Set the terminal to high-resolution PNG with a black background
-# Use pngcairo for better rendering quality
-# Adjust size to 4096 or 8192 depending on your generated data
+# Set high-resolution output
 set terminal pngcairo size 4096,4096 background rgb 'black' fontscale 1.0
+set output "task2_interstellar_final_fixed.png"
 
-# Set the output filename
-set output "task2_interstellar_final.png"
-
-# CRITICAL: Set the view to "map" (top-down 2D projection)
-# The 3D inclination (80 deg) is already baked into the simulation data.
-# This command ensures Gnuplot treats the data as a flat image, not a 3D terrain.
+# Basic view settings
 set view map
-
-# Ensure the aspect ratio is square so the black hole isn't stretched
 set size square
-
-# Remove all borders, axis ticks, and legends for a clean "space photo" look
 unset border
 unset tics
 unset key
+# unset colorbox  # Keep colorbox for now to see the scale
 
-# Optional: Remove the color gradient bar on the right
-# Uncomment the following line if you want a purely cinematic look
-# unset colorbox
-
-# Define the color palette (Interstellar style / Blackbody radiation)
-# Color mapping: Black -> Dark Red -> Orange -> Gold -> White
-# This simulates the temperature gradient of the accretion disk
+# Color palette (Interstellar style)
 set palette defined ( \
     0 0 0 0,      \
     0.1 0.3 0 0,  \
@@ -34,13 +19,23 @@ set palette defined ( \
     0.7 1 0.8 0.3, \
     1 1 1 1 )
 
-# Set the brightness range (Luminosity)
-# Since the Doppler beaming makes one side extremely bright, we clamp the range
-# to ensure the faint parts are still visible.
-# Adjust '2e31' based on your actual data intensity.
-set cbrange [0:2e31]
+# --- CRITICAL FIX START ---
 
-# Plot the data
-# "using 1:2:3" reads X coordinate, Y coordinate, and Intensity
-# "with image" renders a smooth pixel map, filling gaps between data points
+# Method 1: The safest way (Auto-scaling)
+# Comment out the fixed range so Gnuplot decides the range based on actual data
+# set cbrange [0:2e31]  <-- This line caused the black image
+
+# Method 2: Dynamic Scaling (Recommended)
+# We run a statistics check on column 3 (Luminosity) first
+stats "Output_task2.txt" using 3 nooutput
+
+# Print the maximum value found to the console (for your reference)
+print "Maximum Luminosity found: ", STATS_max
+
+# Set the range from 0 to the maximum value found
+set cbrange [0:STATS_max]
+
+# --- CRITICAL FIX END ---
+
+# Plot the image
 splot "Output_task2.txt" using 1:2:3 with image
