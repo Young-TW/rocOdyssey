@@ -56,7 +56,7 @@ void GPU_assigntask1(double* ResultsPixel, double* VariablesIn, int GridIdxX,
                      int BlockDimY);
 
 void mission1::GPUCompute(int GridIdxX, int GridIdxY) {
-    GPU_assigntask1(d_ResultsPixel, d_VariablesIn, GridIdxX, GridIdxY,
+    ::GPU_assigntask1(d_ResultsPixel, d_VariablesIn, GridIdxX, GridIdxY,
                     mGridDimx, mGridDimy, mBlockDimx, mBlockDimy);
 }
 
