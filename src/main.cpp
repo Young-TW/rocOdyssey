@@ -164,7 +164,23 @@ void task2() {
 }  // namespace OdysseyTasks
 
 int main() {
-    OdysseyTasks::task1();
-    // OdysseyTasks::task2();
+    std::cout << "Odyssey GRRT code (HIP version) \n";
+    std::cout << "---------------------------------- \n";
+    std::cout << "Choose which task to run: \n";
+    std::cout << "  1: Reproduce Figure 5.2 of Agol(1997) [High Res / High Spin] \n";
+    std::cout << "  2: Compute thermal syn image of a Keplerian rotating shell \n";
+    std::cout << "Enter task number (1 or 2): ";
+
+    int task;
+    std::cin >> task;
+    if (task == 1)
+        OdysseyTasks::task1();
+    else if (task == 2)
+        OdysseyTasks::task2();
+    else {
+        std::cout << "Invalid task number. Exiting.\n";
+        return 1;
+    }
+
     return 0;
 }
