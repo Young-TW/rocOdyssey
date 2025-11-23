@@ -107,9 +107,9 @@ __global__ void GPU_task1work(double* ResultsPixel, double* VariablesIn,
     }
 }
 
-extern "C" void GPU_assigntask1(double* ResultsPixel, double* VariablesIn,
-                                int GridIdxX, int GridIdxY, int GridDimX,
-                                int GridDimY, int BlockDimX, int BlockDimY) {
+void GPU_assigntask1(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+                     int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
+                     int BlockDimY) {
     dim3 GridDim, BlockDim;
 
     GridDim.x = GridDimX;
@@ -302,9 +302,9 @@ __global__ void GPU_task2work(double* ResultsPixel, double* VariablesIn,
     }
 }
 
-extern "C" void GPU_assigntask2(double* ResultsPixel, double* VariablesIn,
-                                int GridIdxX, int GridIdxY, int GridDimX,
-                                int GridDimY, int BlockDimX, int BlockDimY) {
+void GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+                     int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
+                     int BlockDimY) {
     dim3 GridDim, BlockDim;
 
     GridDim.x = GridDimX;

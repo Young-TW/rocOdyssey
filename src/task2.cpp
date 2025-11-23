@@ -39,20 +39,20 @@ void mission2::PRE(double* VariablesIn) {
     hipMalloc(&d_ResultsPixel, sizeof(double) * mSize * mSize * 3);
     hipMalloc(&d_VariablesIn, sizeof(double) * VarINNUM);
     hipMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM,
-               hipMemcpyHostToDevice);
+              hipMemcpyHostToDevice);
 }
 
 void mission2::AFTER(double* ResultHit) {
     hipMemcpy(ResultHit, d_ResultsPixel, sizeof(double) * mSize * mSize * 3,
-               hipMemcpyDeviceToHost);
+              hipMemcpyDeviceToHost);
 
     hipFree(d_ResultsPixel);
     hipFree(d_VariablesIn);
 }
 
-extern "C" void GPU_assigntask2(double* ResultsPixel, double* VariablesIn,
-                                int GridIdxX, int GridIdxY, int GridDimX,
-                                int GridDimY, int BlockDimX, int BlockDimY);
+GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+                int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
+                int BlockDimY);
 
 void mission2::GPUCompute(int GridIdxX, int GridIdxY) {
     GPU_assigntask2(d_ResultsPixel, d_VariablesIn, GridIdxX, GridIdxY,
