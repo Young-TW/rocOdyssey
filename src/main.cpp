@@ -23,8 +23,6 @@ Yoon (2016 ApJ 820, 105)
 ***********************************************************************************/
 // #pragma once
 
-#include <cuda.h>
-
 #include <fstream>
 #include <iostream>
 
@@ -169,7 +167,6 @@ void task2() {
 }  // namespace OdysseyTasks
 
 int main() {
-    cudaSetDevice(0);
     // OdysseyTasks::task1();
     OdysseyTasks::task2();
     return 0;

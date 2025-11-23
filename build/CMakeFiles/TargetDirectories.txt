@@ -1,0 +1,5 @@
+/home/young/code/Young-TW/rocOdyssey/build/CMakeFiles/exec.dir
+/home/young/code/Young-TW/rocOdyssey/build/CMakeFiles/plot.dir
+/home/young/code/Young-TW/rocOdyssey/build/CMakeFiles/clean_images.dir
+/home/young/code/Young-TW/rocOdyssey/build/CMakeFiles/edit_cache.dir
+/home/young/code/Young-TW/rocOdyssey/build/CMakeFiles/rebuild_cache.dir
