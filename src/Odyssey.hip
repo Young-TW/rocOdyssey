@@ -22,9 +22,7 @@ Yoon (2016 ApJ 820, 105)
 
 ***********************************************************************************/
 
-#include <cuda.h>
-#include <cuda_runtime.h>
-#include <device_launch_parameters.h>
+#include <hip/hip_runtime.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
