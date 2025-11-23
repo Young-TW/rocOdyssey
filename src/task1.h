@@ -25,6 +25,10 @@ Yoon (2016 ApJ 820,105)
 
 #include "Odyssey_def.h"
 
+void GPU_assigntask1(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+                     int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
+                     int BlockDimY);
+
 namespace Task1 {
 
 class mission1 {

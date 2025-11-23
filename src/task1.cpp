@@ -24,10 +24,6 @@ Yoon (2016 ApJ 820, 105)
 
 #include "task1.h"
 
-void GPU_assigntask1(double* ResultsPixel, double* VariablesIn, int GridIdxX,
-                     int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
-                     int BlockDimY);
-
 namespace Task1 {
 
 void mission1::setDims(int GridDimX, int GridDimY, int BlockDimX,
