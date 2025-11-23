@@ -50,7 +50,7 @@ void mission2::AFTER(double* ResultHit) {
     hipFree(d_VariablesIn);
 }
 
-GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+void GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
                 int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
                 int BlockDimY);
 
