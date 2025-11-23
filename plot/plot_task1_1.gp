@@ -23,4 +23,4 @@ set palette defined ( \
 set cbrange [0:1.35]
 
 # Plot
-splot "Output_task1.txt" matrix with image
+splot "Output_task1.txt" using 1:2:3 with dots palette
