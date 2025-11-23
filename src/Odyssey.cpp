@@ -119,7 +119,7 @@ void GPU_assigntask1(double* ResultsPixel, double* VariablesIn, int GridIdxX,
 
     GPU_task1work<<<GridDim, BlockDim>>>(ResultsPixel, VariablesIn, GridIdxX,
                                          GridIdxY);
-    hipThreadSynchronize();
+    hipDeviceSynchronize();
 }
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 //
@@ -314,7 +314,7 @@ void GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
 
     GPU_task2work<<<GridDim, BlockDim>>>(ResultsPixel, VariablesIn, GridIdxX,
                                          GridIdxY);
-    hipThreadSynchronize();
+    hipDeviceSynchronize();
 }
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 //
