@@ -21,8 +21,7 @@ TRANSFER IN KERR SPACE-TIME" by Hung-Yi Pu, Kiyun Yun, Ziri Younsi, and Suk-Jin
 Yoon (2016 ApJ 820, 105)
 
 ***********************************************************************************/
-#include <cuda.h>
-#include <cuda_runtime.h>
+#include <hip/hip_runtime.h>
 
 #include "Odyssey_def.h"
 

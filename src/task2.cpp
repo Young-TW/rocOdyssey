@@ -36,18 +36,18 @@ void mission2::setDims(int GridDimX, int GridDimY, int BlockDimX,
 void mission2::PRE(double* VariablesIn) {
     mSize = (int)SIZE;
 
-    cudaMalloc(&d_ResultsPixel, sizeof(double) * mSize * mSize * 3);
-    cudaMalloc(&d_VariablesIn, sizeof(double) * VarINNUM);
-    cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM,
-               cudaMemcpyHostToDevice);
+    hipMalloc(&d_ResultsPixel, sizeof(double) * mSize * mSize * 3);
+    hipMalloc(&d_VariablesIn, sizeof(double) * VarINNUM);
+    hipMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM,
+               hipMemcpyHostToDevice);
 }
 
 void mission2::AFTER(double* ResultHit) {
-    cudaMemcpy(ResultHit, d_ResultsPixel, sizeof(double) * mSize * mSize * 3,
-               cudaMemcpyDeviceToHost);
+    hipMemcpy(ResultHit, d_ResultsPixel, sizeof(double) * mSize * mSize * 3,
+               hipMemcpyDeviceToHost);
 
-    cudaFree(d_ResultsPixel);
-    cudaFree(d_VariablesIn);
+    hipFree(d_ResultsPixel);
+    hipFree(d_VariablesIn);
 }
 
 extern "C" void GPU_assigntask2(double* ResultsPixel, double* VariablesIn,
