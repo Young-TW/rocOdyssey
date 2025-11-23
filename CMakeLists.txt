@@ -17,6 +17,9 @@ list(APPEND CMAKE_PREFIX_PATH ${ROCM_PATH})
 # Find HIP package
 find_package(HIP REQUIRED)
 
+# cmake -DCMAKE_CXX_COMPILER=hipcc
+set(CMAKE_CXX_COMPILER "${HIP_HIPCC_EXECUTABLE}")
+
 # -----------------------------------------------------------------------------
 # Source Files
 # -----------------------------------------------------------------------------
@@ -28,7 +31,7 @@ set(SOURCES
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/task1.cpp
     ${SRC_DIR}/task2.cpp
-    ${SRC_DIR}/Odyssey.hip 
+    ${SRC_DIR}/Odyssey.cpp
 )
 
 # -----------------------------------------------------------------------------
