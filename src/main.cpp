@@ -36,31 +36,28 @@ using namespace Task2;
 namespace OdysseyTasks {
 
 void task1() {
-    printf("task1: ...Reproduce Figure 5.2 of Agol(1997) ...\n");
+    printf("task1: ...Reproduce Figure 5.2 of Agol(1997) [High Res / High Spin]...\n");
     mission1 mission;
 
     double VariablesIn[VarINNUM];
     double* Results;
-    int ImaDimX, ImaDimY;    //=number of grids; the coordinate of each grid is
-                             // given by (GridIdxX,GridIdY)
-    int GridDimX, GridDimY;  //=number of blocks; the coordinate of each block
-                             // is given by (blockIdx.x ,blockIdx.y )
-    int BlockDimX, BlockDimY;  //=number of threads; the coordinate of each
-                               // thread is given by (threadIdx.x,threadIdx.y)
+    int ImaDimX, ImaDimY;
+    int GridDimX, GridDimY;
+    int BlockDimX, BlockDimY;
 
-    // assign parameters
-    A = 0.;  // black hole spin
-    INCLINATION =
-        acos(0.25) / PI * 180.;  // inclination angle in unit of degree
-    SIZE = 1024;                  // pixels of the image
+    A = 0.998;
+    INCLINATION = 80.0;
+    SIZE = 4096;
 
-    printf("image size = %.0f  x  %0.f  pixels\n", SIZE, SIZE);
+    printf("image size = %.0f  x  %.0f  pixels\n", SIZE, SIZE);
 
-    // assign CUDA congfiguration
-    BlockDimX = 100;
+    // BlockDimX: 256 is for AMD GPU Workgroup size optimization
+    BlockDimX = 256;
     BlockDimY = 1;
-    GridDimX = 1;
-    GridDimY = 50;
+
+    GridDimX = 64;
+    GridDimY = 64;
+
     mission.setDims(GridDimX, GridDimY, BlockDimX, BlockDimY);
 
     // allocate memory on device for input and output
@@ -167,7 +164,7 @@ void task2() {
 }  // namespace OdysseyTasks
 
 int main() {
-    // OdysseyTasks::task1();
-    OdysseyTasks::task2();
+    OdysseyTasks::task1();
+    // OdysseyTasks::task2();
     return 0;
 }
