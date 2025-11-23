@@ -22,7 +22,7 @@ Yoon (2016 ApJ, 820, 105 )
 
 ***********************************************************************************/
 #include <hip/hip_runtime.h>
-#include <device_launch_parameters.h>
+
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
