@@ -23,6 +23,10 @@ Yoon (2016 ApJ 820, 105)
 ***********************************************************************************/
 #include "task2.h"
 
+void GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
+                int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
+                int BlockDimY);
+
 namespace Task2 {
 
 void mission2::setDims(int GridDimX, int GridDimY, int BlockDimX,
@@ -50,12 +54,8 @@ void mission2::AFTER(double* ResultHit) {
     hipFree(d_VariablesIn);
 }
 
-void GPU_assigntask2(double* ResultsPixel, double* VariablesIn, int GridIdxX,
-                int GridIdxY, int GridDimX, int GridDimY, int BlockDimX,
-                int BlockDimY);
-
 void mission2::GPUCompute(int GridIdxX, int GridIdxY) {
-    ::GPU_assigntask2(d_ResultsPixel, d_VariablesIn, GridIdxX, GridIdxY,
+    GPU_assigntask2(d_ResultsPixel, d_VariablesIn, GridIdxX, GridIdxY,
                     mGridDimx, mGridDimy, mBlockDimx, mBlockDimy);
 }
 
