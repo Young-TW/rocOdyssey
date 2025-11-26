@@ -15,8 +15,25 @@ For flexibility, namespace structure in C++  is used for different tasks. Two de
  1. The redshift of a Keplerian disk</li>
  2. The image of Keplerian rotating shell at 340GHz</li>
  (See the example results [here](https://github.com/hungyipu/Odyssey/wiki/Default-Tasks-of-Odyssey-Source-Code))
-  
- 
+
+## Building Odyssey
+
+### AMD ROCm
+
+Prerequisites:
+
+- CMake 3.10 or higher
+- HIP compiler (hipcc)
+- A compatible AMD GPU with ROCm support
+
+Use the following commands to build Odyssey:
+The executable file will be generated at `./build/exec`
+
+```sh
+cmake -B build
+cmake --build build --config RELEASE
+```
+
 ## Summary of Source Codes
 Odyssey source code provided in the src folder includes the following files:<br />
 <br />
