@@ -27,7 +27,7 @@ set(SOURCES
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/task1.cpp
     ${SRC_DIR}/task2.cpp
-    ${SRC_DIR}/Odyssey.cpp
+    ${SRC_DIR}/Odyssey.hip
 )
 
 # -----------------------------------------------------------------------------
