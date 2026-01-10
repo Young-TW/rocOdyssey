@@ -1,11 +1,14 @@
 # Odyssey: a GPU-based GRRT code
 
-- [About](#about)
-- [Summary of Source Codes](#summary-of-source-codes)
-- [Code Structure](#code-structure)
-- [Code Structure: more details](#code-structure-more-details)
-- [Credit](#credit)
-- [Odyssey_Edu: an free educational software](#odyssey_edu-an-free-educational-software)
+- [Odyssey: a GPU-based GRRT code](#odyssey-a-gpu-based-grrt-code)
+  - [About](#about)
+  - [Building Odyssey](#building-odyssey)
+    - [AMD ROCm](#amd-rocm)
+  - [Summary of Source Codes](#summary-of-source-codes)
+  - [Code Structure](#code-structure)
+  - [Code Structure: more details](#code-structure-more-details)
+  - [Credit](#credit)
+- [Odyssey\_Edu: a free educational software](#odyssey_edu-a-free-educational-software)
 
 ## About
 Odyssey is a public, GPU-based General Relativistic Radiative Transfer (GRRT) code for computing images and/or spectra in Kerr metric, which described the spacetime aroung a rotating black hole. Implemented in CUDA C/C++, Odyssey is based on the ray-tracing algorithm presented in [Fuerst & Wu (2004)](http://adsabs.harvard.edu/abs/2004A%26A...424..733F), and radiative transfer formulation described in [Younsi, Wu, & Fuerst. (2012)](http://adsabs.harvard.edu/abs/2012A%26A...545A..13Y).
@@ -30,8 +33,8 @@ Use the following commands to build Odyssey:
 The executable file will be generated at `./build/exec`
 
 ```sh
-cmake -B build
-cmake --build build --config RELEASE
+cmake -B build -DODYSSEY_BACKEND=HIP -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 ```
 
 ## Summary of Source Codes
