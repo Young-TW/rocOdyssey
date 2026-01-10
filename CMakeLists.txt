@@ -13,9 +13,6 @@ endif()
 # Add ROCm to prefix path to find HIP packages
 list(APPEND CMAKE_PREFIX_PATH ${ROCM_PATH})
 
-# Find HIP package
-find_package(HIP REQUIRED)
-
 # cmake -DCMAKE_CXX_COMPILER=hipcc
 set(CMAKE_CXX_COMPILER "${HIP_HIPCC_EXECUTABLE}")
 
