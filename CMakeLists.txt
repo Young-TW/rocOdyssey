@@ -44,10 +44,6 @@ target_include_directories(exec PRIVATE
 # Compiler options (equivalent to -g -Wall)
 target_compile_options(exec PRIVATE -g -Wall)
 
-# Link libraries (equivalent to -L... -lcudart)
-# hip::device will automatically link necessary runtime libraries
-target_link_libraries(exec PRIVATE hip::device)
-
 # Link math library explicitly if needed (equivalent to -lm)
 if(UNIX)
     target_link_libraries(exec PRIVATE m)
