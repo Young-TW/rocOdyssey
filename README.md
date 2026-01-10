@@ -25,7 +25,7 @@ For flexibility, namespace structure in C++  is used for different tasks. Two de
 
 Prerequisites:
 
-- CMake 3.10 or higher
+- CMake 3.21 or higher
 - HIP compiler (hipcc)
 - A compatible AMD GPU with ROCm support
 
