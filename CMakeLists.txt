@@ -1,28 +1,33 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(rocOdyssey LANGUAGES CXX HIP)
+# Find hipcc compiler if CMAKE_CXX_COMPILER is not set
+if(NOT DEFINED CMAKE_CXX_COMPILER)
+    find_program(HIPCC_PATH hipcc HINTS /opt/rocm/bin /usr/bin ENV PATH)
 
-# -----------------------------------------------------------------------------
-# HIP Configuration
-# -----------------------------------------------------------------------------
-# Set default ROCm path if not set in environment
-if(NOT DEFINED ROCM_PATH)
-    set(ROCM_PATH "/opt/rocm" CACHE PATH "Path to ROCm installation")
+    if(HIPCC_PATH)
+        set(CMAKE_CXX_COMPILER "${HIPCC_PATH}")
+        message(STATUS "Found hipcc: ${HIPCC_PATH}")
+        message(STATUS "Forcing CMAKE_CXX_COMPILER to hipcc")
+    else()
+        message(FATAL_ERROR "Could not find hipcc. Please ensure ROCm is installed or set CMAKE_CXX_COMPILER manually.")
+    endif()
 endif()
 
-# Add ROCm to prefix path to find HIP packages
-list(APPEND CMAKE_PREFIX_PATH ${ROCM_PATH})
+# -----------------------------------------------------------------------------
+# Project Setup
+# -----------------------------------------------------------------------------
+# Enable C++ and HIP languages
+project(rocOdyssey LANGUAGES CXX HIP)
 
-# cmake -DCMAKE_CXX_COMPILER=hipcc
-set(CMAKE_CXX_COMPILER "${HIP_HIPCC_EXECUTABLE}")
+if(NOT DEFINED CMAKE_HIP_ARCHITECTURES)
+    set(CMAKE_HIP_ARCHITECTURES "native")
+endif()
 
 # -----------------------------------------------------------------------------
 # Source Files
 # -----------------------------------------------------------------------------
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-# Define source files
-# Note: Ensure Odyssey.cu is renamed to Odyssey.cpp after running hipify-perl
 set(SOURCES
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/task1.cpp
@@ -35,32 +40,31 @@ set(SOURCES
 # -----------------------------------------------------------------------------
 add_executable(exec ${SOURCES})
 
-# Include directories (equivalent to -I. -I${CUDA_PATH}/include)
+# Set include directories and compile options
 target_include_directories(exec PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${ROCM_PATH}/include
+    ${CMAKE_CXX_COMPILER_PARENT_DIR}/../include 
 )
 
-# Compiler options (equivalent to -g -Wall)
 target_compile_options(exec PRIVATE -g -Wall)
 
-# Link math library explicitly if needed (equivalent to -lm)
+# -----------------------------------------------------------------------------
+# Libraries
+# -----------------------------------------------------------------------------
+# Link Math library on UNIX systems
 if(UNIX)
     target_link_libraries(exec PRIVATE m)
 endif()
 
 # -----------------------------------------------------------------------------
-# Custom Targets (Ported from Makefile)
+# Custom Targets
 # -----------------------------------------------------------------------------
-# Plot target: mimics "make plot"
 add_custom_target(plot
     COMMAND gnuplot < ${CMAKE_CURRENT_SOURCE_DIR}/plot/plot_task2.gp
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Running gnuplot script..."
 )
 
-# Clean is handled automatically by CMake ("make clean"), but we can add 
-# a custom cleanup for generated images if needed.
 add_custom_target(clean_images
     COMMAND rm -f ${CMAKE_CURRENT_SOURCE_DIR}/*.png
     COMMENT "Cleaning generated PNG images..."
