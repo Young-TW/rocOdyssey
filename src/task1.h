@@ -21,7 +21,14 @@ TRANSFER IN KERR SPACE-TIME" by Hung-Yi Pu, Kiyun Yun, Ziri Younsi, and Suk-Jin
 Yoon (2016 ApJ 820,105)
 
 ***********************************************************************************/
+
+#if defined(BACKEND_HIP)
 #include <hip/hip_runtime.h>
+#elif defined(BACKEND_CUDA)
+#include <cuda_runtime.h>
+#else
+#error "No valid backend defined. Ensure BACKEND_HIP or BACKEND_CUDA is passed from CMake."
+#endif
 
 #include "Odyssey_def.h"
 
