@@ -3,6 +3,7 @@
 - [Odyssey: a GPU-based GRRT code](#odyssey-a-gpu-based-grrt-code)
   - [About](#about)
   - [Building Odyssey](#building-odyssey)
+    - [NVIDIA CUDA](#nvidia-cuda)
     - [AMD ROCm](#amd-rocm)
   - [Summary of Source Codes](#summary-of-source-codes)
   - [Code Structure](#code-structure)
@@ -21,16 +22,29 @@ For flexibility, namespace structure in C++  is used for different tasks. Two de
 
 ## Building Odyssey
 
+Use the following commands to build Odyssey:
+The executable file will be generated at `./build/exec`
+
+### NVIDIA CUDA
+
+Prerequisites:
+
+- CMake 3.28 or higher
+- CUDA compiler (nvcc)
+- A compatible NVIDIA GPU with CUDA support
+
+```sh
+cmake -B build -DODYSSEY_BACKEND=CUDA -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
 ### AMD ROCm
 
 Prerequisites:
 
-- CMake 3.21 or higher
+- CMake 3.28 or higher
 - HIP compiler (hipcc)
 - A compatible AMD GPU with ROCm support
-
-Use the following commands to build Odyssey:
-The executable file will be generated at `./build/exec`
 
 ```sh
 cmake -B build -DODYSSEY_BACKEND=HIP -DCMAKE_BUILD_TYPE=Release
