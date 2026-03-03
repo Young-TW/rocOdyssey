@@ -37,18 +37,35 @@ void mission1::setDims(int GridDimX, int GridDimY, int BlockDimX,
 void mission1::PRE(double* VariablesIn) {
     mSize = (int)SIZE;
 
+    #if defined(BACKEND_HIP)
     hipMalloc(&d_ResultsPixel, sizeof(double) * mSize * mSize * 3);
     hipMalloc(&d_VariablesIn, sizeof(double) * VarINNUM);
     hipMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM,
               hipMemcpyHostToDevice);
+    #elif defined(BACKEND_CUDA)
+    cudaMalloc(&d_ResultsPixel, sizeof(double) * mSize * mSize * 3);
+    cudaMalloc(&d_VariablesIn, sizeof(double) * VarINNUM);
+    cudaMemcpy(d_VariablesIn, VariablesIn, sizeof(double) * VarINNUM,
+               cudaMemcpyHostToDevice);
+    #else
+    #error "No valid backend defined. Ensure BACKEND_HIP or BACKEND_CUDA is passed from CMake."
+    #endif
 }
 
 void mission1::AFTER(double* ResultHit) {
+    #if defined(BACKEND_HIP)
     hipMemcpy(ResultHit, d_ResultsPixel, sizeof(double) * mSize * mSize * 3,
               hipMemcpyDeviceToHost);
-
     hipFree(d_ResultsPixel);
     hipFree(d_VariablesIn);
+    #elif defined(BACKEND_CUDA)
+    cudaMemcpy(ResultHit, d_ResultsPixel, sizeof(double) * mSize * mSize * 3,
+               cudaMemcpyDeviceToHost);
+    cudaFree(d_ResultsPixel);
+    cudaFree(d_VariablesIn);
+    #else
+    #error "No valid backend defined. Ensure BACKEND_HIP or BACKEND_CUDA is passed from CMake."
+    #endif
 }
 
 void mission1::GPUCompute(int GridIdxX, int GridIdxY) {
