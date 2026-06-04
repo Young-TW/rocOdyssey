@@ -8,9 +8,14 @@ jobs:
       image: nvidia/cuda:12.2.2-devel-ubuntu22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Build with CMake
+
+      - name: Install Dependencies
         run: |
+          export DEBIAN_FRONTEND=noninteractive
           apt update
           apt install -y cmake
+
+      - name: Build with CMake
+        run: |
           cmake -B build -DODYSSEY_BACKEND=CUDA -DCMAKE_BUILD_TYPE=Release
           cmake --build build

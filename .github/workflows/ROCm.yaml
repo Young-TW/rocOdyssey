@@ -8,8 +8,14 @@ jobs:
       image: rocm/dev-ubuntu-22.04:latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt update
+          apt install -y cmake
+
       - name: Build with CMake
         run: |
-          apt install -y cmake
           cmake -B build -DODYSSEY_BACKEND=HIP -DCMAKE_BUILD_TYPE=Release
           cmake --build build
