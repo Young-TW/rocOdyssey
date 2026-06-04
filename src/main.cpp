@@ -56,7 +56,7 @@ void task1() {
 
     printf("image size = %.0f  x  %0.f  pixels\n", SIZE, SIZE);
 
-    // assign CUDA congfiguration
+    // assign CUDA configuration
     BlockDimX = 100;
     BlockDimY = 1;
     GridDimX = 1;
@@ -122,7 +122,7 @@ void task2() {
 
     printf("image size = %.0f  x  %0.f  pixels\n", SIZE, SIZE);
 
-    // assign CUDA congfigurations
+    // assign CUDA configurations
     BlockDimX = 100;
     BlockDimY = 1;
     GridDimX = 1;
