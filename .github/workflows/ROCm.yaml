@@ -1,0 +1,14 @@
+name: ROCm Build
+on: [push, pull_request]
+
+jobs:
+  build-rocm:
+    runs-on: ubuntu-latest
+    container:
+      image: rocm/dev-ubuntu-22.04:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with CMake
+        run: |
+          cmake -B build -DODYSSEY_BACKEND=HIP -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
