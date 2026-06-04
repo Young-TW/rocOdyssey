@@ -62,7 +62,6 @@ __global__ void GPU_task1work(double* ResultsPixel, double* VariablesIn,
 
     double Rdisk = 50.;
     double ima_width = 55.;
-    double offset_shoot = 2. * ima_width / (int)SIZE;
 
     double s1 = ima_width;
     double s2 = 2. * ima_width / ((int)SIZE + 1.);
@@ -146,14 +145,12 @@ __device__ double task2fun_GetZ(double* Variables, double* VariablesIn,
 
     double sigma = r2 + a2 * cos2;
     double delta = r2 - twor + a2;
-    double bigA = (r * r + A * A) * (r * r + A * A) - A * A * delta * sin2;
     double ssig = (r2 + a2) * (r2 + a2) - a2 * delta * sin2;
 
     //======define (covariant) metric component
     double gtt = -(1. - 2. * r / sigma);
     double gtph = -2. * A * r * sin2 / sigma;
     double grr = sigma / delta;
-    double gthth = sigma;
     double gphph = ssig * sin2 / sigma;
 
     //==========Keplerian flow: outside ISCO
@@ -210,7 +207,6 @@ __global__ void GPU_task2work(double* ResultsPixel, double* VariablesIn,
     double s1 = ima_width;
     double s2 = 2. * ima_width / ((int)SIZE + 1.);
 
-    double Jy_corr = Jansky_Correction(VariablesIn, ima_width);
     double L_corr = Luminosity_Correction(VariablesIn, ima_width);
 
     grid_x = -s1 + s2 * (X1 + 1.);
@@ -246,9 +242,6 @@ __global__ void GPU_task2work(double* ResultsPixel, double* VariablesIn,
             break;
         }
 
-        double intensity, flux, luminosity;
-        double local_emi = 0.;
-        double local_abs = 0.;
         double r = y[0];
         double theta = y[1];
 
