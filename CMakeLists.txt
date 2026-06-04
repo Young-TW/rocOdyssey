@@ -71,18 +71,22 @@ add_executable(exec ${COMMON_SOURCES} ${GPU_SOURCE})
 # -----------------------------------------------------------------------------
 # 5. Include & Link Options
 # -----------------------------------------------------------------------------
-target_include_directories(exec PRIVATE 
+target_include_directories(exec PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-if(ODYSSEY_BACKEND STREQUAL "HIP")
+if(ODYSSEY_BACKEND STREQUAL "CUDA")
+    find_package(CUDAToolkit REQUIRED)
+    target_include_directories(exec PRIVATE ${CUDAToolkit_INCLUDE_DIRS})
+    target_link_libraries(exec PRIVATE CUDA::cudart)
+elseif(ODYSSEY_BACKEND STREQUAL "HIP")
     target_compile_definitions(exec PRIVATE BACKEND_HIP)
 else()
-    target_compile_definitions(exec PRIVATE BACKEND_CUDA)
+    # This case should never happen due to the earlier check.
+    message(FATAL_ERROR "Unsupported backend: ${ODYSSEY_BACKEND}")
 endif()
 
 target_compile_options(exec PRIVATE -g -Wall)
-
 
 if(UNIX)
     target_link_libraries(exec PRIVATE m)
