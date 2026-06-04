@@ -24,10 +24,6 @@ Yoon (2016 ApJ 820, 105)
 
 #include <hip/hip_runtime.h>
 #include <math.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <iostream>
 
 #include "Odyssey_def.h"
 #include "Odyssey_def_fun.h"

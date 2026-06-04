@@ -1,10 +1,14 @@
 CompileFlags:
   Add: [-std=c++17]
-
+  CompilationDatabase: build/
+---
 If:
-  - PathMatch: ".*\\.cu$"
-    CompileFlags:
-      Add: [-x, cuda, --cuda-host-only, -std=c++17]
-  - PathMatch: ".*\\.hip$"
-    CompileFlags:
-      Add: [-x, c++, -D__HIPCC__, -std=c++17]
+  PathMatch: ".*\\.cu$"
+CompileFlags:
+  Add: [-x, cuda, --cuda-host-only, -std=c++17]
+
+---
+If:
+  PathMatch: ".*\\.hip$"
+CompileFlags:
+  Add: [-x, hip, --rocm-path=/opt/rocm, -D__HIPCC__, -std=c++17]
