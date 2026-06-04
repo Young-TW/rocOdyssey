@@ -13,7 +13,8 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           apt update
-          apt install -y cmake
+          apt install -y wget tar
+          wget -qO- "https://github.com/Kitware/CMake/releases/download/v4.3.3/cmake-4.3.3-linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local
 
       - name: Build with CMake
         run: |
